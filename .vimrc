@@ -12,6 +12,8 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'pangloss/vim-javascript'
 Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'jiangmiao/auto-pairs'
 call vundle#end()            " required
 
 
@@ -34,9 +36,13 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " themes for vim & airline status-bar
 colorscheme base16-ocean
-let g:airline_theme='badwolf'
+let g:airline_theme='base16'
 set encoding=utf-8
 let g:airline_powerline_fonts = 1
 
 " NERDTree remapping
 map <F2> :NERDTreeToggle<CR>
+
+
+" handleBar 
+let g:mustache_abbreviations = 1
