@@ -47,3 +47,4 @@ map <F2> :NERDTreeToggle<CR>
 
 " handleBar 
 let g:mustache_abbreviations = 1
+
