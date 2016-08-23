@@ -1,6 +1,6 @@
 set nocompatible              " be improved, required
 filetype off    " Required
-set rtp+=~/.vim/bundle/vundle
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()          " required
 
 Plugin 'VundleVim/Vundle.vim'
@@ -14,6 +14,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'kien/ctrlp.vim'
 call vundle#end()            " required
 
 
