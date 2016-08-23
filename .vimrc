@@ -34,7 +34,9 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " themes for vim & airline status-bar
 colorscheme base16-ocean
-let g:airline_theme='luna'
+let g:airline_theme='badwolf'
+set encoding=utf-8
+let g:airline_powerline_fonts = 1
 
 " NERDTree remapping
 map <F2> :NERDTreeToggle<CR>
