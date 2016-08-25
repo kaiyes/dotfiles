@@ -45,7 +45,9 @@ let g:airline_theme='simple'
 map <F2> :NERDTreeToggle<CR>
 
 " screen auto resize
- let &winheight = &lines * 7 / 10
-" set splitbelow
- set splitright
-
+"  let &winheight = &lines * 7 / 10
+" set splitright
+ set winwidth=104
+ set winheight=5
+ set winminheight=5
+ set winheight=999
