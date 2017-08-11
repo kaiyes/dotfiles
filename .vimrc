@@ -1,8 +1,8 @@
 set nocompatible              " be improved, required
 filetype off    " Required
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()          " required
 
+call vundle#begin()          " required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'flazz/vim-colorschemes'
@@ -14,6 +14,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/ctrlp.vim'
+Plugin 'mxw/vim-jsx'
 call vundle#end()            " required
 
 
@@ -26,7 +27,7 @@ set ruler
 set number
 set showmatch
 
-"  coloured braces
+" colored braces
 let g:rbpt_max = 16
 let g:rbpt_loadcmd_toggle = 0
 au VimEnter * RainbowParenthesesToggle
@@ -34,20 +35,28 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-" themes for vim & airline status-bar
 
+" themes for vim & airline status bar
 let g:airline_powerline_fonts = 1
 set encoding=utf-8
 colorscheme base16-ocean
 let g:airline_theme='simple'
 
-" NERDTree remapping
+" remapping
 map <F2> :NERDTreeToggle<CR>
+:imap jj <Esc>
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
 
 " screen auto resize
-"  let &winheight = &lines * 7 / 10
-" set splitright
- set winwidth=80
- set winheight=5
- set winminheight=5
- set winheight=999
+set winwidth=80
+set winheight=5
+set winminheight=5
+set winheight=999
+
+" reactjs stuff
+let g:jsx_ext_required = 0
+
+autocmd vimenter * NERDTree
