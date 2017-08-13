@@ -15,6 +15,10 @@ Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/ctrlp.vim'
 Plugin 'mxw/vim-jsx'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'wincent/terminus'
 call vundle#end()            " required
 
 
@@ -43,7 +47,7 @@ colorscheme base16-ocean
 let g:airline_theme='simple'
 
 " remapping
-map <F2> :NERDTreeToggle<CR>
+map <F12> :NERDTreeToggle<CR>
 :imap jj <Esc>
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
@@ -60,3 +64,8 @@ set winheight=999
 let g:jsx_ext_required = 0
 
 autocmd vimenter * NERDTree
+
+" utilsnip 
+let g:UltiSnipsExpandTrigger="<ENTER>"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<c-j>"
