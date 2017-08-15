@@ -1,5 +1,5 @@
 set nocompatible              " be improved, required
-filetype off    " Required
+filetype plugin on    " Required
 set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()          " required
@@ -11,7 +11,6 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'chriskempson/base16-vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'pangloss/vim-javascript'
-Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/ctrlp.vim'
 Plugin 'mxw/vim-jsx'
@@ -19,6 +18,8 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'wincent/terminus'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'junegunn/rainbow_parentheses.vim'
 call vundle#end()            " required
 
 
@@ -31,19 +32,15 @@ set ruler
 set number
 set showmatch
 
-" colored braces
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
 
+
+" colored braces
+let g:rainbow#pairs = [['(', ')'], ['{', '}'], ['[', ']']]          
 
 " themes for vim & airline status bar
 let g:airline_powerline_fonts = 1
 set encoding=utf-8
-colorscheme base16-ocean
+colorscheme base16-tomorrow
 let g:airline_theme='simple'
 
 " remapping
@@ -63,9 +60,16 @@ set winheight=999
 " reactjs stuff
 let g:jsx_ext_required = 0
 
-autocmd vimenter * NERDTree
-
 " utilsnip 
 let g:UltiSnipsExpandTrigger="<ENTER>"
 let g:UltiSnipsJumpForwardTrigger="<c-k>"
 let g:UltiSnipsJumpBackwardTrigger="<c-j>"
+
+"autocmd vimenter * NERDTree
+
+"ctrl-p related stuff
+let g:ctrlp_by_filename = 1
+let g:ctrlp_working_path_mode = 'c'
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|android|node_modules|ios)$'
+   
+
