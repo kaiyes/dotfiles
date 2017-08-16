@@ -28,7 +28,7 @@ call vundle#end()            " required
 set laststatus=2
 "filetype plugin indent on    " required
 syntax enable 
-highlight Normal ctermfg=grey ctermbg=black
+"highlight Normal ctermfg=grey ctermbg=black
 set ruler
 set number
 set showmatch
@@ -46,7 +46,7 @@ set encoding=utf-8
 colorscheme base16-tomorrow
 let g:airline_theme='cobalt2'
 
-" remapping
+" NerdTree stuff 
 "autocmd vimenter * NERDTree
 map <F12> :NERDTreeToggle<CR>
 :imap jj <Esc>
@@ -65,6 +65,7 @@ set winheight=999
 let g:jsx_ext_required = 0
 
 " utilsnip 
+"inoremap <Tab> <c-r>=UltiSnips#ExpandSnippet()<cr>
 let g:UltiSnipsExpandTrigger="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-k>"
 let g:UltiSnipsJumpBackwardTrigger="<c-j>"
@@ -87,4 +88,8 @@ set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_w = 0
+
+" easymotion related
+hi EasyMotionTarget2First ctermbg=none ctermfg=red
+hi EasyMotionTarget2Second ctermbg=none ctermfg=red
