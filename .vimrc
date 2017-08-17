@@ -13,29 +13,24 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'pangloss/vim-javascript'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/ctrlp.vim'
-Plugin 'mxw/vim-jsx'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'junegunn/rainbow_parentheses.vim'
-Plugin 'scrooloose/syntastic'
 Plugin 'wincent/terminus'
+Plugin 'mitermayer/vim-prettier'
 call vundle#end()            " required
-
 
 " core basic settings
 set laststatus=2
-"filetype plugin indent on    " required
 syntax enable 
-"highlight Normal ctermfg=grey ctermbg=black
 set ruler
 set number
 set showmatch
 set shiftwidth=2
 set tabstop=2
 set backspace=2
-
 
 " colored braces
 let g:rainbow#pairs = [['(', ')'], ['{', '}'], ['[', ']']]          
@@ -78,18 +73,14 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|android|node_modules|ios)$'
    
 
-"eslint stuff
-let g:syntastic_javascript_checkers = ['eslint']
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_w = 0
-
 " easymotion related
 hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi EasyMotionTarget2Second ctermbg=none ctermfg=red
+
+"prettier related
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.json,*.css,*.scss,*.less,*.graphql PrettierAsync
+let g:prettier#config#print_width = 60
+let g:prettier#config#semi = 'false'
+let g:prettier#config#single_quote = 'true'
+let g:prettier#config#bracket_spacing = 'true'
