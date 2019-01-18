@@ -20,6 +20,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'junegunn/rainbow_parentheses.vim'
 Plugin 'wincent/terminus'
 Plugin 'mitermayer/vim-prettier'
+Plugin 'tpope/vim-surround'
 call vundle#end()            " required
 
 " core basic settings
@@ -43,8 +44,7 @@ let g:airline_theme='cobalt2'
 
 " NerdTree stuff 
 "autocmd vimenter * NERDTree
-map <F12> :NERDTreeToggle<CR>
-:imap jj <Esc>
+map <C-n> :NERDTreeToggle<CR> 
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
@@ -79,8 +79,8 @@ hi EasyMotionTarget2Second ctermbg=none ctermfg=red
 
 "prettier related
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.json,*.css,*.scss,*.less,*.graphql PrettierAsync
-let g:prettier#config#print_width = 60
+autocmd BufWritePre *.js,*.json,*.css,*.babel,*.scss,*.less,*.graphql PrettierAsync
+let g:prettier#config#print_width = 80
 let g:prettier#config#semi = 'false'
 let g:prettier#config#single_quote = 'true'
 let g:prettier#config#bracket_spacing = 'true'
