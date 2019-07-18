@@ -38,8 +38,10 @@ let g:rainbow#pairs = [['(', ')'], ['{', '}'], ['[', ']']]
 
 " themes for vim & airline status bar
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 set encoding=utf-8
-colorscheme base16-tomorrow
+set termguicolors
+colorscheme darkocean
 let g:airline_theme='cobalt2'
 
 " NerdTree stuff 
@@ -49,6 +51,7 @@ nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
+let g:NERDTreeNodeDelimiter = '1'
 
 " screen auto resize
 set winwidth=80
@@ -61,7 +64,7 @@ let g:jsx_ext_required = 0
 
 " utilsnip 
 "inoremap <Tab> <c-r>=UltiSnips#ExpandSnippet()<cr>
-let g:UltiSnipsExpandTrigger="<c-l>"
+let g:UltiSnipsExpandTrigger="<c-e>"
 let g:UltiSnipsJumpForwardTrigger="<c-k>"
 let g:UltiSnipsJumpBackwardTrigger="<c-j>"
 
@@ -84,3 +87,4 @@ let g:prettier#config#print_width = 80
 let g:prettier#config#semi = 'false'
 let g:prettier#config#single_quote = 'true'
 let g:prettier#config#bracket_spacing = 'true'
+
