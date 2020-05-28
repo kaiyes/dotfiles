@@ -1,28 +1,24 @@
 set nocompatible              " be improved, required
 filetype plugin indent on    " Required
 set rtp+=~/.vim/bundle/Vundle.vim
-
 call vundle#begin()          " required
+" All the plugins
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
-Plugin 'flazz/vim-colorschemes'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
-Plugin 'chriskempson/base16-vim'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'pangloss/vim-javascript'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/ctrlp.vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'junegunn/rainbow_parentheses.vim'
 Plugin 'wincent/terminus'
 Plugin 'mitermayer/vim-prettier'
 Plugin 'tpope/vim-surround'
+Plugin 'machakann/vim-highlightedyank'
+Plugin 'Brettm12345/moonlight.vim'
 call vundle#end()            " required
-
+	
 " core basic settings
 set laststatus=2
 syntax enable 
@@ -30,27 +26,22 @@ set ruler
 set number
 set showmatch
 set shiftwidth=2
-set tabstop=2
+set tabstop=4
 set backspace=2
 
 " colored braces
-let g:rainbow#pairs = [['(', ')'], ['{', '}'], ['[', ']']]          
+let g:rainbow#pairs = [['(', ')'], ['{', '}'], ['[', ']']]
 
-" themes for vim & airline status bar
+" themes for airline status bar
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-set encoding=utf-8
-set termguicolors
-colorscheme darkocean
+
+"####### Themes for vim color ######### 
+colorscheme moonlight
 let g:airline_theme='cobalt2'
 
 " NerdTree stuff 
-"autocmd vimenter * NERDTree
 map <C-n> :NERDTreeToggle<CR> 
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
 let g:NERDTreeNodeDelimiter = '1'
 
 " screen auto resize
@@ -59,16 +50,11 @@ set winheight=5
 set winminheight=5
 set winheight=999
 
-" reactjs stuff
-let g:jsx_ext_required = 0
 
 " utilsnip 
-"inoremap <Tab> <c-r>=UltiSnips#ExpandSnippet()<cr>
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-k>"
-let g:UltiSnipsJumpBackwardTrigger="<c-j>"
 
-
+"Hightlight duration
+let g:highlightedyank_highlight_duration = 300
 
 "ctrl-p related stuff
 let g:ctrlp_by_filename = 1
