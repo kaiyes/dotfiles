@@ -1,0 +1,269 @@
+# Function
+snippet fun "function"
+	function ${1:function_name}(${2}) {
+		${0:${VISUAL}}
+	}
+
+# Asynchronous Function
+snippet asf "async function"
+	async function ${1:function_name}(${2}) {
+		${0:${VISUAL}}
+	}
+
+# Anonymous Function assigned to variable
+snippet caf
+	const ${1:function_name} = function(${2}) {
+		${0:${VISUAL}}
+	};
+
+# Flow control
+
+# if
+snippet if "if (condition) { ... }"
+	if (${1:true}) {
+		${0:${VISUAL}}
+	}
+
+# if ... else
+snippet ife "if (condition) { ... } else { ... }"
+	if (${1:true}) {
+		${0:${VISUAL}}
+	} else {
+		${2}
+	}
+
+# tertiary conditional
+snippet ter
+	${1:/* condition */} ? ${2:/* if true */} : ${0:/* if false */}
+
+# switch
+snippet switch
+	switch (${1:expression}) {
+		case '${3:case}':
+			${4}
+			break;
+		${0}
+		default:
+			${2}
+	}
+
+snippet case "case 'xyz': ... break"
+	case '${1:case}':
+		${0:${VISUAL}}
+		break;
+
+snippet try "try { ... } catch(e) { ... }"
+	try {
+		${0:${VISUAL}}
+	} catch (${1:e}) {
+		${2:/* handle error */}
+	}
+
+snippet tryf "try { ... } catch(e) { ... } finally { ... }"
+	try {
+		${0:${VISUAL}}
+	} catch (${1:e}) {
+		${2:/* handle error */}
+	} finally {
+		${3:/* be executed regardless of the try / catch result*/}
+	}
+
+# throw Error
+snippet terr
+	throw new Error('${1:error message}')
+
+# return
+snippet ret
+	return ${0:result};
+
+snippet for "for (...) {...}"
+	for (const ${1:i} = 0, ${2:len} = ${3:Things.length}; $1 < $2; $1++) {
+		${0:${VISUAL}}
+	}
+
+snippet forr "reversed for (...) {...}"
+	for (const ${2:i} = ${1:Things.length} - 1; $2 >= 0; $2--) {
+		${0:${VISUAL}}
+	}
+
+snippet wh "(condition) { ... }"
+	while (${1:/* condition */}) {
+		${0:${VISUAL}}
+	}
+
+snippet do "do { ... } while (condition)"
+	do {
+		${0:${VISUAL}}
+	} while (${1:/* condition */});
+
+# For in loop
+snippet fori
+	for (const ${1:prop} in ${2:object}) {
+		${0:$2[$1]}
+	}
+
+# JSON.parse
+snippet jsonp
+	JSON.parse(${0:jstr});
+# JSON.stringify
+snippet jsons
+	JSON.stringify(${0:object});
+
+# Debugging
+snippet cl "console.log"
+	console.log(${0});
+snippet ce "console.error"
+	console.error(${0});
+snippet cw "console.warn"
+	console.warn(${0});
+snippet ca "console.assert"
+	console.assert(${1:expression}, ${0:obj});
+snippet ctable "console.table"
+	console.table(${1:"${2:value}"});
+
+# Misc
+snippet const
+	const ${1} = ${0};
+
+snippet constn
+	const ${1} = new ${0};
+
+snippet let
+	let ${1} = ${0};
+
+snippet im "import xyz from 'xyz'"
+	import ${1} from '${2:$1}';
+
+snippet imas "import * as xyz from 'xyz'"
+	import * as ${1} from '${2:$1}';
+
+snippet imm "import { member } from 'xyz'"
+	import { ${1} } from '${2}';
+
+snippet cla
+	class ${1} {
+		${0:${VISUAL}}
+	}
+
+snippet clax
+	class ${1} extends ${2} {
+		${0:${VISUAL}}
+	}
+
+snippet clac
+	class ${1} {
+		constructor(${2}) {
+			${0:${VISUAL}}
+		}
+	}
+
+snippet foro "for (const prop of object}) { ... }"
+	for (const ${1:prop} of ${2:object}) {
+		${0:$1}
+	}
+
+snippet af "() =>"
+	(${1}) => ${0:${VISUAL}}
+
+snippet afb "() => {}"
+	(${1}) => {
+		${0:${VISUAL}}
+	}
+
+snippet ed
+	export default ${0}
+
+# My own
+snippet ie "Import React-Native-element"
+	import { ${1} } from 'react-native-elements'
+
+snippet ire "Import React-Native-element"
+	import {${1}} from '${0}'
+
+snippet irn "React-Native Text and View"
+	import { View, Text, ${0} } from 'react-native'
+
+snippet tx "react-native <Text>"
+	<Text style={styles.${1}}>${0}</Text>
+
+snippet vi "react-native <View>"
+	<View style={styles.${1}}>${0}</View>
+
+snippet hp "height %"
+	hp('${1}%')
+
+snippet wp "width %"
+	wp('${1}%')
+
+snippet fl "<FlatList />"
+	<FlatList
+	 data={data.${1} }
+	 keyExtractor={item => item._id}
+	 renderItem={this._renderItem}
+	/>
+
+snippet sh "react native shadow"
+	shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.37, shadowRadius: 7.49, elevation: 12,
+
+snippet ih "import hooks"
+	import { useMutation, useQuery } from '@apollo/react-hooks'
+
+snippet ar "async resolver"
+	${1}: async (_, ${2}, { user }) => { await requireAuth(user) const ${3} = await ${4}.find({ ${5}: ${6} }) return ${7}}},
+
+snippet map "map"
+	map((item, index) => { return (${0})})
+
+snippet ma "map without {}"
+	map((item) =>  (${0}))
+
+snippet cen "center stuff"
+	justifyContent: 'center',
+	alignItems: 'center'
+
+snippet cc "content container"
+	contentContainerStyle={styles.${0}}
+
+snippet bac "backgroundColor"
+	backgroundColor: '${1}'
+
+snippet bc "big comments"
+	// ################# ${1} ##################
+
+snippet uf "useEffect"
+	useEffect(() => ${1})
+
+snippet ust "useState"
+	const [ ${1}, set${2}] = useState(${3})
+
+snippet uq "useQuery"
+	const { data, loading, error } = useQuery(${1})
+
+snippet um "useMutation"
+	const [${1}] = useMutation(${2})
+
+snippet uc "useContext"
+	const { ${1} } = useContext(${2})
+
+snippet ig "prettier ignore"
+	// prettier-ignore
+
+snippet ifc "useFocusEffect"
+	import { useFocusEffect } from '@react-navigation/native'
+
+snippet sty "style"
+	${1}: { ${2}: ${3}}
+
+snippet style "StyleSheet"
+	const styles = StyleSheet.create({
+		container: {
+			flex: 1,
+			backgroundColor: 'white'
+		},
+		${0}
+	})
+
+snippet iwp "import wp & hp"
+	import { widthPercentageToDP as wp,
+					 heightPercentageToDP as hp }
+	from 'react-native-responsive-screen'
