@@ -25,6 +25,7 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 Plugin 'AutoComplPop'
+Plugin 'tpope/vim-commentary'
 call vundle#end()            " required
 
 " core basic settings
