@@ -24,10 +24,11 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
+Plugin 'joshdick/onedark.vim'
 Plugin 'AutoComplPop'
 Plugin 'tpope/vim-commentary'
 call vundle#end()            " required
-
+	
 " core basic settings
 set laststatus=2
 syntax on
@@ -43,6 +44,9 @@ set winheight=5
 set winminheight=5
 set winheight=999
 
+" remaps 
+let mapleader =" "
+
 " colored braces
 let g:rainbow#pairs = [['(', ')'], ['{', '}'], ['[', ']']]
 
@@ -50,12 +54,12 @@ let g:rainbow#pairs = [['(', ')'], ['{', '}'], ['[', ']']]
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
-"####### Themes for vim color #########
+"####### Themes for vim color ######### 
 colorscheme moonlight
 let g:airline_theme='cobalt2'
 
-" NerdTree stuff
-map <C-n> :NERDTreeToggle<CR>
+" NerdTree stuff 
+map <C-n> :NERDTreeToggle<CR> 
 let g:NERDTreeNodeDelimiter = '1'
 
 "Hightlight duration
@@ -65,10 +69,11 @@ let g:highlightedyank_highlight_duration = 300
 let g:ctrlp_by_filename = 1
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|android|node_modules|ios)$'
-
+   
 " easymotion related
 hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi EasyMotionTarget2Second ctermbg=none ctermfg=red
+map <Leader>f <Plug>(easymotion-bd-w)
 
 "prettier related
 let g:prettier#autoformat = 0
