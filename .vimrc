@@ -19,6 +19,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'machakann/vim-highlightedyank'
 Plugin 'maxmellon/vim-jsx-pretty'
 Plugin 'yuezk/vim-js'
+"Plugin 'pangloss/vim-javascript'
 Plugin 'jparise/vim-graphql'
 Plugin 'Brettm12345/moonlight.vim'
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -64,7 +65,9 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
 "####### Themes for vim color ######### 
-colorscheme xcodedark
+colorscheme moonlight
+autocmd FileType rust colorscheme xcodedark 
+highlight Pmenu ctermbg=gray guibg=gray
 let g:airline_theme='cobalt2'
 
 " NerdTree stuff 
@@ -92,4 +95,3 @@ let g:prettier#config#print_width = 80
 let g:prettier#config#semi = 'false'
 let g:prettier#config#single_quote = 'true'
 let g:prettier#config#bracket_spacing = 'false'
-
