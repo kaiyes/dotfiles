@@ -33,6 +33,7 @@ Plugin 'ryanoasis/vim-devicons'
 Plugin 'ap/vim-css-color'
 Plugin 'arzg/vim-rust-syntax-ext'
 Plugin 'rust-lang/rust.vim'
+Plugin 'keith/swift.vim'
 call vundle#end()            " required
 
 	
@@ -52,7 +53,8 @@ set backspace=2
 set winwidth=80
 set winheight=5
 set winminheight=5
-set winheight=999
+set winheight=1000
+ 
 
 "remaps 
 let mapleader =" "
@@ -67,6 +69,7 @@ let g:airline#extensions#tabline#enabled = 1
 "####### Themes for vim color ######### 
 colorscheme moonlight
 autocmd FileType rust colorscheme xcodedark 
+autocmd FileType swift colorscheme xcodedark 
 highlight Pmenu ctermbg=gray guibg=gray
 let g:airline_theme='cobalt2'
 
@@ -86,6 +89,7 @@ let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|android|node_modules|ios)$'
 hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi EasyMotionTarget2Second ctermbg=none ctermfg=red
 map <Leader>f <Plug>(easymotion-bd-w)
+let g:EasyMotion_keys = 'asdfghjklqwertyuiopzxcvbnm'
 
 "prettier related
 let g:prettier#autoformat_config_present = 1
@@ -95,3 +99,4 @@ let g:prettier#config#print_width = 80
 let g:prettier#config#semi = 'false'
 let g:prettier#config#single_quote = 'true'
 let g:prettier#config#bracket_spacing = 'false'
+
