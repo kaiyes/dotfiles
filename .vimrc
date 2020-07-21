@@ -11,7 +11,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'jiangmiao/auto-pairs'
-Plugin 'kien/ctrlp.vim'
+"Plugin 'kien/ctrlp.vim'
 Plugin 'junegunn/rainbow_parentheses.vim'
 Plugin 'wincent/terminus'
 Plugin 'mitermayer/vim-prettier'
@@ -34,9 +34,11 @@ Plugin 'ap/vim-css-color'
 Plugin 'arzg/vim-rust-syntax-ext'
 Plugin 'rust-lang/rust.vim'
 Plugin 'keith/swift.vim'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 call vundle#end()            " required
 
-	
+
 " core basic settings
 set laststatus=2
 syntax on
@@ -54,10 +56,13 @@ set winwidth=80
 set winheight=5
 set winminheight=5
 set winheight=1000
- 
 
-"remaps 
+
+"leader
 let mapleader =" "
+
+"remaps
+nnoremap <Leader>r :%s///g<Left><Left>
 
 " colored braces
 let g:rainbow#pairs = [['(', ')'], ['{', '}'], ['[', ']']]
@@ -66,15 +71,15 @@ let g:rainbow#pairs = [['(', ')'], ['{', '}'], ['[', ']']]
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
-"####### Themes for vim color ######### 
-colorscheme moonlight
-autocmd FileType rust colorscheme xcodedark 
-autocmd FileType swift colorscheme xcodedark 
+"####### Themes for vim color #########
+colorscheme Gruvbox
+autocmd FileType rust colorscheme xcodedark
+autocmd FileType swift colorscheme xcodedark
 highlight Pmenu ctermbg=gray guibg=gray
 let g:airline_theme='cobalt2'
 
-" NerdTree stuff 
-map <C-n> :NERDTreeToggle<CR> 
+" NerdTree stuff
+map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeNodeDelimiter = '1'
 
 "Hightlight duration
@@ -83,8 +88,12 @@ let g:highlightedyank_highlight_duration = 300
 "ctrl-p related stuff
 "let g:ctrlp_by_filename = 1
 "let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|android|node_modules|ios)$'
-   
+"let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|android|node_modules|ios)$'
+
+"FZF
+nnoremap <silent> <C-p> :GFiles <CR>
+nnoremap <silent> <C-o> :Buffers <CR>
+
 " easymotion related
 hi EasyMotionTarget2First ctermbg=none ctermfg=red
 hi EasyMotionTarget2Second ctermbg=none ctermfg=red
@@ -99,4 +108,3 @@ let g:prettier#config#print_width = 80
 let g:prettier#config#semi = 'false'
 let g:prettier#config#single_quote = 'true'
 let g:prettier#config#bracket_spacing = 'false'
-
