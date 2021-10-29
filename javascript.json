@@ -1,0 +1,172 @@
+{
+  "log": {
+    "prefix": ["cl"],
+    "body": "console.log(${0})"
+  },
+	 "function": {
+        "prefix": ["fun"],
+        "body":"function ${1:name} (${2:arguments}) {\n\t${0}\n}" 
+  },
+	"async function": {
+        "prefix": ["asf"],
+        "body": "async function ${1:funtion_name} (${2:arguments}) {\n\t${0}\n}"
+  },
+"if block": {
+        "prefix": ["if"],
+        "body": "if (${1:condition}) {\n\t${0}\n}"
+  },
+"else": {
+        "prefix": ["el"],
+        "body": "else {\n\t${0}\n}"
+  },
+"else if statement": {
+    "prefix": "ei",
+    "body": "else if (${1:condition}) {\n\t${0}\n}"
+  },
+	"import module destructured": {
+    "prefix": "im",
+    "body": "import {$1} from '${2:module}'"
+  },
+	"module default export function": {
+    "prefix": "edf",
+    "body": "export default function ${1:name} (${2:arguments}) {\n\t${0}\n}"
+  },
+	  "module default export": {
+    "prefix": "ed",
+    "body": "export default ${1:member}"
+  },
+	"arrow function with bracket": {
+    "prefix": "f",
+    "body": "(${1:arguments}) => {${2}}"
+  },
+"arrow function without bracket": {
+    "prefix": "af",
+    "body": "() => ${1}"
+  },
+
+	"immediately-invoked function expression": {
+    "prefix": "ii",
+    "body": ";(function (${1:arguments}) {\n\t${0}\n})(${2})"
+  },
+	 "map without bracket": {
+    "prefix": "ma",
+    "body": "map(${1:item} => $2)"
+  },
+  "map with bracket": {
+    "prefix": "map",
+    "body": "map(${1:item} => {$2})"
+  },
+	  "reduce": {
+    "prefix": "red",
+    "body": "reduce((acc, val) => acc+val, 0)"
+  },
+  "filter": {
+    "prefix": "fil",
+    "body": "filter(${1:item} => {\n\t${0}\n})"
+  },
+  "find": {
+    "prefix": "find",
+    "body": "find(${1:item} => {\n\t${0}\n})"
+  },
+	  "return": {
+    "prefix": "r",
+    "body": "return ${0}"
+  },
+	 "Switch Statement": {
+    "prefix": "switch",
+    "body": [
+      "switch (${1:key}) {",
+      "\tcase ${2:value}:",
+      "\t\t$0",
+      "\t\tbreak;",
+      "",
+      "\tdefault:",
+      "\t\tbreak;",
+      "}"
+    ],
+    "description": "Switch Statement"
+  },
+	"Import React-Native-element": {
+        "prefix": ["ie"],
+        "body": "import { ${0} } from 'react-native-elements'"
+  },
+	"Import React-Native": {
+        "prefix": ["ir"],
+        "body": "import { View, Text,TouchableOpacity, ${0} } from 'react-native'"
+  },
+"Text": {
+        "prefix": ["tx"],
+        "body": "<Text style={styles.${0}}>${1}</Text>"
+  },
+"View": {
+        "prefix": ["vi"],
+        "body": "<View style={styles.${0}}>${1}</View>"
+  },
+"height %": {
+        "prefix": ["hp"],
+        "body": "hp('${0}%')"
+  },
+"width %": {
+        "prefix": ["wp"],
+        "body": "wp('${0}%')"
+  },
+"shadow": {
+        "prefix": ["sh"],
+        "body": "shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.37, shadowRadius: 7.49, elevation: 12,"
+  },
+"import hooks": {
+        "prefix": ["ih"],
+        "body": "import { useMutation, useQuery } from '@apollo/react-hooks'"
+  },
+"center stuff": {
+        "prefix": ["cen"],
+ 				"body": "justifyContent: 'center', alignItems: 'center'"
+  },
+"contentContainer": {
+        "prefix": ["cc"],
+        "body": "contentContainerStyle={styles.${0}}"
+  },
+"backgroundColor": {
+        "prefix": ["bac"],
+        "body": "backgroundColor: '${1}'"
+  },
+"big comments": {
+        "prefix": ["bc"],
+        "body": "// ################# ${0} ##################"
+  },
+"useEffect": {
+        "prefix": ["uf"],
+        "body": "useEffect(() => {\n\t${0}\n})"
+  },
+"useState": {
+        "prefix": ["us"],
+        "body": "const [ ${1}, set${2}] = useState(${3})"
+  },
+"useQuery": {
+    "prefix": "uq",
+    "body": "const { data, loading, error} = useQuery(${0})",
+    "description": "useQuery"
+  },  
+  "useMutation": {
+    "prefix": "um",
+    "body": "const [${1:mutationName}, {loading,error}] = useMutation(${0})",
+    "description": "useMutation"
+  },
+	"useContext": {
+        "prefix": ["uc"],
+        "body": "const { ${1} } = useContext(${2})"
+  },
+"prettier-ignore": {
+        "prefix": ["ig"],
+        "body": "// prettier-ignore"
+  },
+"useFocusEffect": {
+        "prefix": ["fe"],
+        "body": "import { useFocusEffect } from '@react-navigation/native'"
+  },
+"import wp & hp": {
+        "prefix": ["iwp"],
+        "body": "import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'"
+  }
+}
+
