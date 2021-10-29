@@ -111,13 +111,6 @@ lua <<EOF
 				vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
       end,
     },
-    mapping = {
-      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Enter>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.close(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    },
     sources = {
       { name = 'nvim_lsp' },
       { name = 'vsnip' },
@@ -132,23 +125,42 @@ lua <<EOF
       vsnip= "[vsnip]",
       nvim_lua = "[Lua]",
       latex_symbols = "[Latex]",
-    })})
-		}
+			})})
+		},
   })
 EOF
 
-"let g:vsnip_filetypes.javascriptreact = ['javascript']
-"let g:vsnip_snippet_dir += get(g:, 'vsnip_snippet_dirs', []) + [expand('<sfile>:p:h:h').'/snippets']
+" lua << EOF
+" local nvim_lsp = require'lspconfig'
+"
+" local on_attach = function(client)
+"     require'completion'.on_attach(client)
+" end
+"
+" nvim_lsp.javascript.setup({
+"     on_attach=on_attach,
+"     settings = {
+"         ["rust-analyzer"] = {
+"             assist = {
+"                 importGranularity = "module",
+"                 importPrefix = "by_self",
+"             },
+"             cargo = {
+"                 loadOutDirsFromCheck = true
+"             },
+"             procMacro = {
+"                 enable = true
+"             },
+"         }
+"     }
+" })
+"
+" EOF
 
-lua << EOF
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-require('lspconfig').html.setup{
-    capabilities = capabilities
-		}
-EOF
-
+"Jump forward or backward
 imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+
