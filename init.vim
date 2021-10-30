@@ -125,7 +125,7 @@ local vim = vim
         c = cmp.mapping.close(),
       }),
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
-		 ['<Tab>'] = cmp.mapping(function(fallback)
+			['<Tab>'] = cmp.mapping(function(fallback)
 	   if vim.fn['vsnip#available']() == 1 then
 		    feedkey("<Plug>(vsnip-expand)","<C-n>")
 		 else
@@ -135,8 +135,8 @@ local vim = vim
 				 feedkey("<Tab>","n")
 			 end
 	   end
-    end, {'i', 's'});	
-				},
+    end, {'i', 's'});
+	   		},
 			
     sources = {
       { name = 'nvim_lsp' },
@@ -197,6 +197,4 @@ EOF
  imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
  smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 
-
- 
-"As
+				 
