@@ -27,30 +27,36 @@ let mapleader =" "
 call plug#begin('~/.config/nvim/plugged')
 	Plug 'kyazdani42/nvim-web-devicons'
 	Plug 'phaazon/hop.nvim'
-	Plug 'nvim-lua/plenary.nvim'
 	Plug 'nvim-telescope/telescope.nvim'
 	Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 	Plug 'neovim/nvim-lspconfig'
-	Plug 'nvim-lualine/lualine.nvim'
 	Plug 'jiangmiao/auto-pairs'
 	Plug 'kyazdani42/nvim-tree.lua'
 	Plug 'tpope/vim-surround'
-	Plug 'wincent/terminus'
 	Plug 'numToStr/Comment.nvim'
 	Plug 'lukas-reineke/indent-blankline.nvim'
 	Plug 'ap/vim-css-color'
 	Plug 'machakann/vim-highlightedyank'
 	Plug 'yuezk/vim-js'
 	Plug 'maxmellon/vim-jsx-pretty'
+	Plug 'mhartington/formatter.nvim'
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
+	
+	" completion libraries
 	Plug 'hrsh7th/cmp-nvim-lsp'
 	Plug 'hrsh7th/cmp-buffer'
 	Plug 'hrsh7th/cmp-path'
-	"Plug 'hrsh7th/cmp-cmdline'
 	Plug 'hrsh7th/nvim-cmp'
 	Plug 'hrsh7th/cmp-vsnip'
 	Plug 'hrsh7th/vim-vsnip'
 	Plug 'onsails/lspkind-nvim'
-	Plug 'mhartington/formatter.nvim'
+	
+	" libraries used by other libs
+	Plug 'nvim-lua/plenary.nvim'
+	Plug 'simrat39/rust-tools.nvim'
+	Plug 'nvim-lua/popup.nvim'
+	Plug 'mfussenegger/nvim-dap'
 call plug#end()
 
 
@@ -64,16 +70,8 @@ nnoremap <silent><leader>f :HopWord<CR>
 " telescope settings
 nnoremap <c-p> <cmd>Telescope find_files<cr>
 nnoremap <leader>ff <cmd>Telescope live_grep<cr>
-nnoremap <c-b> <cmd>Telescope buffers<cr>
+nnoremap <c-b> <cmd>Telescope buffers<cr>	
 
-" telescope settings
-lua << END
-require'lualine'.setup{
-	options = {theme = 'gruvbox_light'}
-}
-END
-
-" nvim tree settings
 lua << END
 	require'nvim-tree'.setup()
 END
@@ -81,13 +79,11 @@ END
 let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
 nnoremap <C-n> :NvimTreeToggle<CR>
 
-"comment 
 lua << EOF
 	require('Comment').setup()
 EOF
 
 
-"indent 
 lua << EOF
 	require('indent_blankline').setup()
 EOF
@@ -95,7 +91,6 @@ EOF
 "Hightlight duration
 let g:highlightedyank_highlight_duration = 300
 
-"color
 "colorscheme gruvbox
 colorscheme hybrid
 
@@ -103,25 +98,19 @@ colorscheme hybrid
 set completeopt=menu,menuone,noselect
 
 lua <<EOF
-  -- Setup nvim-cmp.
+-- Setup nvim-cmp.
 local vim = vim
   local cmp = require'cmp'
 	local lspkind = require('lspkind')
-    
-	local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
- end
- 
-local feedkey = function(key, mode)
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-end
+	local feedkey = function(key, mode)
+ 	 vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+	end	
 
   cmp.setup({
     snippet = {
       expand = function(args)
 				vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-      end,
+			end
     },
 
 	mapping = {
@@ -136,16 +125,16 @@ end
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
 
 			 ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-       -- cmp.select_next_item()
-			 cmp.confirm({ select= true })
-      elseif vim.fn["vsnip#available"](1) == 1 then
-        feedkey("<Plug>(vsnip-expand-or-jump)", "")
-      else
-        fallback() 
-      end
-    end, { "i", "s" }),
-	},
+       if cmp.visible() then
+        --cmp.select_next_item()
+			  cmp.confirm({ select= true })
+       elseif vim.fn["vsnip#available"](1) == 1 then
+         feedkey("<Plug>(vsnip-expand-or-jump)", "")
+			 else
+         fallback() 
+       end
+    	 end, { "i", "s" }),
+			 },
 			
 
     sources = {
@@ -206,4 +195,36 @@ EOF
  smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
  imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
  smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-			
+
+lua << EOF
+	local nvim_lsp = require'lspconfig'
+
+local on_attach = function(client)
+    require'completion'.on_attach(client)
+end
+
+nvim_lsp.rust_analyzer.setup({
+    on_attach=on_attach,
+    settings = {
+        ["rust-analyzer"] = {
+            assist = {
+                importGranularity = "module",
+                importPrefix = "by_self",
+            },
+            cargo = {
+                loadOutDirsFromCheck = true
+            },
+            procMacro = {
+                enable = true
+            },
+        }
+    }
+})
+
+require('rust-tools').setup({})
+EOF
+
+" themes for airline status bar
+let g:airline_powerline_fonts = 1
+let g:airline_section_c = '%{fnamemodify(expand("%"), ":~:.")}'
+
