@@ -125,29 +125,19 @@ local vim = vim
         c = cmp.mapping.close(),
       }),
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
-			 ['<Tab>'] = cmp.mapping(function(fallback)
-      local selected_entry = cmp.core.view:get_selected_entry()
-      if not selected_entry and vim.is_truthy(vim.call('vsnip#available', 1)) then
-        vim.fn.feedkeys(utils_vim.replace_keys('<Plug>(vsnip-jump-next)'), '')
-      elseif cmp.visible() then
-        cmp.select_next_item()
-      else
-        fallback()
-      end
-    end, {'i', 's'});
-
-		['<S-Tab>'] = cmp.mapping(function(fallback)
-      local selected_entry = cmp.core.view:get_selected_entry()
-      if not selected_entry and utils_vim.is_truthy(vim.call('vsnip#available', -1)) then
-        vim.fn.feedkeys(utils_vim.replace_keys('<Plug>(vsnip-jump-prev)'), '')
-      elseif cmp.visible() then
-        cmp.select_prev_item()
-      else
-        fallback()
-      end
-    end, {'i', 's'});
-			},
-
+		 ['<Tab>'] = cmp.mapping(function(fallback)
+	   if vim.fn['vsnip#available']() == 1 then
+		    feedkey("<Plug>(vsnip-expand)","<C-n>")
+		 else
+       if vim.fn.pumvisible() == 1 then
+		    feedkey("<C-N>","n")
+			else
+				 feedkey("<Tab>","n")
+			 end
+	   end
+    end, {'i', 's'});	
+				},
+			
     sources = {
       { name = 'nvim_lsp' },
       { name = 'vsnip' },
@@ -164,14 +154,6 @@ local vim = vim
 			})})
 		},
   })
-EOF
-
-lua << EOF
- -- Setup lspconfig.
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  require('lspconfig').html.setup {
-    capabilities = capabilities
-		}
 EOF
 
 lua << EOF
@@ -209,3 +191,11 @@ augroup END
 )
 EOF
 
+"Jump forward or backward in snippets
+ imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+ smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+ imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+ smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+
+ 
