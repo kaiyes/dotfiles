@@ -107,6 +107,15 @@ lua <<EOF
 local vim = vim
   local cmp = require'cmp'
 	local lspkind = require('lspkind')
+    
+	local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+ end
+ 
+local feedkey = function(key, mode)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+end
 
   cmp.setup({
     snippet = {
@@ -125,19 +134,20 @@ local vim = vim
         c = cmp.mapping.close(),
       }),
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
-			['<Tab>'] = cmp.mapping(function(fallback)
-	   if vim.fn['vsnip#available']() == 1 then
-		    feedkey("<Plug>(vsnip-expand)","<C-n>")
-		 else
-       if vim.fn.pumvisible() == 1 then
-		    feedkey("<C-N>","n")
-			else
-				 feedkey("<Tab>","n")
-			 end
-	   end
-    end, {'i', 's'});
-	   		},
+
+			 ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+       -- cmp.select_next_item()
+			 cmp.confirm({ select= true })
+      elseif vim.fn["vsnip#available"](1) == 1 then
+        feedkey("<Plug>(vsnip-expand-or-jump)", "")
+      else
+        fallback() 
+      end
+    end, { "i", "s" }),
+	},
 			
+
     sources = {
       { name = 'nvim_lsp' },
       { name = 'vsnip' },
@@ -196,5 +206,4 @@ EOF
  smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
  imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
  smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
-				 
+			
