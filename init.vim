@@ -45,12 +45,14 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'hrsh7th/cmp-nvim-lsp'
 	Plug 'hrsh7th/cmp-buffer'
 	Plug 'hrsh7th/cmp-path'
-	Plug 'hrsh7th/cmp-cmdline'
+	"Plug 'hrsh7th/cmp-cmdline'
 	Plug 'hrsh7th/nvim-cmp'
 	Plug 'hrsh7th/cmp-vsnip'
 	Plug 'hrsh7th/vim-vsnip'
 	Plug 'onsails/lspkind-nvim'
+	Plug 'mhartington/formatter.nvim'
 call plug#end()
+
 
 " Hop Settings
 lua << EOF
@@ -102,6 +104,7 @@ set completeopt=menu,menuone,noselect
 
 lua <<EOF
   -- Setup nvim-cmp.
+local vim = vim
   local cmp = require'cmp'
 	local lspkind = require('lspkind')
 
@@ -111,11 +114,45 @@ lua <<EOF
 				vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
       end,
     },
+
+	mapping = {
+      ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+      ['<C-y>'] = cmp.config.disable, 
+      ['<C-e>'] = cmp.mapping({
+        i = cmp.mapping.abort(),
+        c = cmp.mapping.close(),
+      }),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+			 ['<Tab>'] = cmp.mapping(function(fallback)
+      local selected_entry = cmp.core.view:get_selected_entry()
+      if not selected_entry and vim.is_truthy(vim.call('vsnip#available', 1)) then
+        vim.fn.feedkeys(utils_vim.replace_keys('<Plug>(vsnip-jump-next)'), '')
+      elseif cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end, {'i', 's'});
+
+		['<S-Tab>'] = cmp.mapping(function(fallback)
+      local selected_entry = cmp.core.view:get_selected_entry()
+      if not selected_entry and utils_vim.is_truthy(vim.call('vsnip#available', -1)) then
+        vim.fn.feedkeys(utils_vim.replace_keys('<Plug>(vsnip-jump-prev)'), '')
+      elseif cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end, {'i', 's'});
+			},
+
     sources = {
       { name = 'nvim_lsp' },
       { name = 'vsnip' },
       { name = 'buffer' },
-			{ name = "path" },
+			{ name = "path" }
 			},
 		
 		formatting = {
@@ -123,44 +160,52 @@ lua <<EOF
       buffer = "[Buffer]",
       nvim_lsp = "[LSP]",
       vsnip= "[vsnip]",
-      nvim_lua = "[Lua]",
       latex_symbols = "[Latex]",
 			})})
 		},
   })
 EOF
 
-" lua << EOF
-" local nvim_lsp = require'lspconfig'
-"
-" local on_attach = function(client)
-"     require'completion'.on_attach(client)
-" end
-"
-" nvim_lsp.javascript.setup({
-"     on_attach=on_attach,
-"     settings = {
-"         ["rust-analyzer"] = {
-"             assist = {
-"                 importGranularity = "module",
-"                 importPrefix = "by_self",
-"             },
-"             cargo = {
-"                 loadOutDirsFromCheck = true
-"             },
-"             procMacro = {
-"                 enable = true
-"             },
-"         }
-"     }
-" })
-"
-" EOF
+lua << EOF
+ -- Setup lspconfig.
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  require('lspconfig').html.setup {
+    capabilities = capabilities
+		}
+EOF
 
-"Jump forward or backward
-imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+lua << EOF
+local vim = vim
+local format = require("formatter")
 
+local prettier = function()
+  return {
+    exe = "prettier",
+    args = {"--stdin-filepath", vim.fn.shellescape(vim.api.nvim_buf_get_name(0)), "--single-quote"},
+    stdin = true,
+  }
+end
+
+format.setup {
+  logging = false,
+  filetype = {
+    javascript = { prettier },
+    javascriptreact = { prettier },
+    markdown = { prettier },
+    json = { prettier },
+		vim = { prettier },
+		},
+}
+
+
+vim.api.nvim_exec(
+  [[
+augroup FormatAutogroup
+  autocmd!
+  autocmd BufWritePost *.js,*.jsx,*.json FormatWrite
+augroup END
+]],
+  true
+)
+EOF
 
