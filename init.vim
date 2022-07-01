@@ -109,11 +109,9 @@ EOF
 let g:highlightedyank_highlight_duration = 300
 
 "colorscheme gruvbox
-"colorscheme hybrid
-"colorscheme tender
 colorscheme nightfox
-"hi Normal ctermbg=16 guibg=#000000
-"hi LineNr ctermbg=16 guibg=#000000
+hi Visual  guifg=Black guibg=Yellow gui=none
+highlight IncSearch gui=underline,bold guifg=black guibg=yellow
 
 "snippet/autocomplete menu
 set completeopt=menu,menuone,noselect
