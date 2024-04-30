@@ -35,10 +35,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-  {'nvim-treesitter/nvim-treesitter', build=":TSUpdate"},
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-    { "kyazdani42/nvim-web-devicons" },
-    { "phaazon/hop.nvim" },
+  {'nvim-treesitter/nvim-treesitter', build=':TSUpdate'},
+    {'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
+    {'kyazdani42/nvim-web-devicons' },
+    {'phaazon/hop.nvim' },
   {'nvim-telescope/telescope.nvim'},
   {'jiangmiao/auto-pairs'},
   {'kyazdani42/nvim-tree.lua'},
@@ -46,9 +46,8 @@ local plugins = {
   {'numToStr/Comment.nvim'},
   {'ap/vim-css-color'},
   {'machakann/vim-highlightedyank'},
-  {'vim-airline/vim-airline'},
-  {'vim-airline/vim-airline-themes'},
   {'mhartington/formatter.nvim'},
+  {'nvim-lualine/lualine.nvim'},
 
   {'rust-lang/rust.vim'},
   {'williamboman/mason.nvim'},
@@ -72,6 +71,7 @@ local plugins = {
     {'mfussenegger/nvim-dap'}
 
 }
+
 local opts={}
 
 require("lazy").setup(plugins, opts)
@@ -111,9 +111,6 @@ vim.keymap.set('n', '<C-n>', api.tree.toggle,{})
 require('Comment').setup()
 
 vim.g.highlightedyank_highlight_duration = 600
-
-vim.g.airline_powerline_fonts = 1
-vim.g.airline_theme = 'luna'
 
 require("mason").setup()
 require("mason-lspconfig").setup({
@@ -207,3 +204,6 @@ vim.g.vsnip_snippet_dir = vim.fn.expand('~/.config/nvim/snippets')
 
 -- Map <CR> to clear search highlights
 vim.api.nvim_set_keymap('n', '<CR>', ':nohlsearch<CR>', { noremap = true, silent = true })
+
+
+require('lualine').setup()
